@@ -1,0 +1,210 @@
+<?xml version="1.0"?>
+<OAI-PMH xmlns="" xmlns:oai="http://www.openarchives.org/OAI/2.0/" xmlns:ri="http://www.ivoa.net/xml/RegistryInterface/v1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:regexp="http://exslt.org/regular-expressions" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd http://www.ivoa.net/xml/RegistryInterface/v1.0 http://www.ivoa.net/xml/RegistryInterface/RegistryInterface-1.0.xsd">
+  <request/>
+  <getRecord>
+    <record>
+      <header>
+        <identifier>ivo://org.gavo.dc/2mass/res/2mass/q</identifier>
+      </header>
+      <metadata>
+        <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:adms="http://www.w3.org/ns/adms#" xmlns:bibo="http://purl.org/ontology/bibo/" xmlns:citedcat="https://w3id.org/citedcat-ap/" xmlns:dct="http://purl.org/dc/terms/" xmlns:dctype="http://purl.org/dc/dcmitype/" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:gsp="http://www.opengis.net/ont/geosparql#" xmlns:locn="http://www.w3.org/ns/locn#" xmlns:org="http://www.w3.org/ns/org#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:prov="http://www.w3.org/ns/prov#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:vcard="http://www.w3.org/2006/vcard/ns#" xmlns:wdrs="http://www.w3.org/2007/05/powder-s#" xmlns:ivods="http://www.ivoa.net/xml/VODataService/v1.1">
+          <rdf:Description>
+            <rdf:type rdf:resource="http://www.w3.org/ns/dcat#Catalogue"/>
+            <dct:type rdf:resource="http://purl.org/dc/dcmitype/Dataset"/>
+            <dct:creator>
+              <rdf:Description>
+                <rdf:type rdf:Resource="https://xmlns.com/foaf/0.1/Person">
+                  <foaf:name>GAVO Data Centre</foaf:name>
+                </rdf:type>
+              </rdf:Description>
+            </dct:creator>
+            <dct:title>2Mass Query</dct:title>
+            <dct:publisher>
+              <foaf:Organization>
+                <foaf:name>The GAVO DC team</foaf:name>
+              </foaf:Organization>
+            </dct:publisher>
+            <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2024-08-08T11:41:23Z</dct:modified>
+            <adms:identifier>
+              <adms:Identifier>
+                <skos:notation rdf:datatype="http://www.w3.org/2001/XMLSchema#anyURI">ivo://org.gavo.dc/2mass/res/2mass/q</skos:notation>
+                <adms:schemeAgency>ivo-id</adms:schemeAgency>
+              </adms:Identifier>
+            </adms:identifier>
+            <dct:identifier>twomass_q</dct:identifier>
+            <dcat:contactPoint>
+              <vcard:Organization>
+                <vcard:fn>GAVO Data Centre Team</vcard:fn>
+                <vcard:Address>Mönchhofstrasse 12-14, D-69120 Heidelberg</vcard:Address>
+                <vcard:email>gavo@ari.uni-heidelberg.de</vcard:email>
+              </vcard:Organization>
+            </dcat:contactPoint>
+            <dcat:keyword>stars</dcat:keyword>
+            <dcat:keyword>surveys</dcat:keyword>
+            <dcat:keyword>astrometry</dcat:keyword>
+            <dct:description>The 2MASS Point Source Catalogue, short a couple of exotic fields. We
+provide this data mainly for matching with other catalogs within our
+TAP service.</dct:description>
+            <dcat:landingpage>http://dc.g-vo.org/2mass/res/2mass/q/info</dcat:landingpage>
+            <dcat:Distribution>
+              <dcat:AccessService>
+                <Description rdf:about="ivo://org.gavo.dc/tap">
+                  <dct:identifier>ivo://org.gavo.dc/tap</dct:identifier>
+                  <rdf:type rdf:resource="http://www.w3.org/ns/dcat#Service"/>
+                  <rdf:type rdf:resource="http://purl.org/dc/dcmitype/Service"/>
+                </Description>
+                <dcat:DataService/>
+              </dcat:AccessService>
+            </dcat:Distribution>
+            <dcat:Distribution>
+              <dct:description/>
+              <dcat:accessURL>http://dc.g-vo.org/2mass/res/2mass/q/scs.xml?</dcat:accessURL>
+              <dct:formats>application/x-votable+xml</dct:formats>
+              <dcat:AccessService>
+                <Description rdf:about="">
+                  <dct:identifier/>
+                  <dcat:endpointURL>http://dc.g-vo.org/2mass/res/2mass/q/scs.xml?</dcat:endpointURL>
+                  <dcat:endpointURLDescription>http://ivo.net/openAPI/...</dcat:endpointURLDescription>
+                </Description>
+              </dcat:AccessService>
+              <dcat:accessURL>https://dc.g-vo.org/2mass/res/2mass/q/scs.xml?</dcat:accessURL>
+            </dcat:Distribution>
+            <dcat:Distribution>
+              <dct:description/>
+              <dcat:accessURL>http://dc.g-vo.org/2mass/res/2mass/q/availability</dcat:accessURL>
+              <dcat:AccessService>
+                <Description rdf:about="">
+                  <dct:identifier/>
+                  <dcat:endpointURL>http://dc.g-vo.org/2mass/res/2mass/q/availability</dcat:endpointURL>
+                  <dcat:endpointURLDescription>http://ivo.net/openAPI/...</dcat:endpointURLDescription>
+                </Description>
+              </dcat:AccessService>
+              <dcat:accessURL>https://dc.g-vo.org/2mass/res/2mass/q/availability</dcat:accessURL>
+            </dcat:Distribution>
+            <dcat:Distribution>
+              <dct:description/>
+              <dcat:accessURL>http://dc.g-vo.org/2mass/res/2mass/q/capabilities</dcat:accessURL>
+              <dcat:AccessService>
+                <Description rdf:about="">
+                  <dct:identifier/>
+                  <dcat:endpointURL>http://dc.g-vo.org/2mass/res/2mass/q/capabilities</dcat:endpointURL>
+                  <dcat:endpointURLDescription>http://ivo.net/openAPI/...</dcat:endpointURLDescription>
+                </Description>
+              </dcat:AccessService>
+              <dcat:accessURL>https://dc.g-vo.org/2mass/res/2mass/q/capabilities</dcat:accessURL>
+            </dcat:Distribution>
+            <dcat:Distribution>
+              <dct:description/>
+              <dcat:accessURL>http://dc.g-vo.org/2mass/res/2mass/q/tableMetadata</dcat:accessURL>
+              <dcat:AccessService>
+                <Description rdf:about="">
+                  <dct:identifier/>
+                  <dcat:endpointURL>http://dc.g-vo.org/2mass/res/2mass/q/tableMetadata</dcat:endpointURL>
+                  <dcat:endpointURLDescription>http://ivo.net/openAPI/...</dcat:endpointURLDescription>
+                </Description>
+              </dcat:AccessService>
+              <dcat:accessURL>https://dc.g-vo.org/2mass/res/2mass/q/tableMetadata</dcat:accessURL>
+            </dcat:Distribution>
+            <dcat:Distribution>
+              <dct:description/>
+              <dcat:accessURL>http://dc.g-vo.org/tap</dcat:accessURL>
+              <dcat:AccessService>
+                <Description rdf:about="">
+                  <dct:identifier/>
+                  <dcat:endpointURL>http://dc.g-vo.org/tap</dcat:endpointURL>
+                  <dcat:endpointURLDescription>http://ivo.net/openAPI/...</dcat:endpointURLDescription>
+                </Description>
+              </dcat:AccessService>
+              <dcat:accessURL>https://dc.g-vo.org/tap</dcat:accessURL>
+            </dcat:Distribution>
+            <dcat:Catalog>
+              <rdf:Description rdf:about="twomass">
+                <dct:type rdf:resource="http://purl.org/dc/dcmitype/Catalog"/>
+                <dcat:Catalog>
+                  <rdf:Description rdf:about="output">
+                    <dct:type rdf:resource="http://purl.org/dc/dcmitype/Dataset"/>
+                    <dcat:Dataset>
+                      <dct:description>The 2MASS Point Source Catalogue, short a couple of exotic fields. We
+provide this data mainly for matching with other catalogs within our
+TAP service.</dct:description>
+                      <rdf:Description>
+                        <rdf:type rdf:resource="http://www.ivoa.net/xml/VODataService/v1.1#Column"/>
+                        <ivods:Column>
+                          <ivods:name>_r</ivods:name>
+                          <ivods:description>Distance to cone center</ivods:description>
+                          <ivods:unit>deg</ivods:unit>
+                          <ivods:ucd>pos.angDistance</ivods:ucd>
+                          <ivods:flag>nullable</ivods:flag>
+                        </ivods:Column>
+                      </rdf:Description>
+                      <rdf:Description>
+                        <rdf:type rdf:resource="http://www.ivoa.net/xml/VODataService/v1.1#Column"/>
+                        <ivods:Column>
+                          <ivods:name>mainid</ivods:name>
+                          <ivods:description>Source designation</ivods:description>
+                          <ivods:ucd>meta.id;meta.main</ivods:ucd>
+                          <ivods:flag>nullable</ivods:flag>
+                        </ivods:Column>
+                      </rdf:Description>
+                      <rdf:Description>
+                        <rdf:type rdf:resource="http://www.ivoa.net/xml/VODataService/v1.1#Column"/>
+                        <ivods:Column>
+                          <ivods:name>raj2000</ivods:name>
+                          <ivods:description>Right ascension (J2000)</ivods:description>
+                          <ivods:unit>deg</ivods:unit>
+                          <ivods:ucd>pos.eq.ra;meta.main</ivods:ucd>
+                          <ivods:flag>nullable</ivods:flag>
+                        </ivods:Column>
+                      </rdf:Description>
+                      <rdf:Description>
+                        <rdf:type rdf:resource="http://www.ivoa.net/xml/VODataService/v1.1#Column"/>
+                        <ivods:Column>
+                          <ivods:name>dej2000</ivods:name>
+                          <ivods:description>Declination (J2000)</ivods:description>
+                          <ivods:unit>deg</ivods:unit>
+                          <ivods:ucd>pos.eq.dec;meta.main</ivods:ucd>
+                          <ivods:flag>nullable</ivods:flag>
+                        </ivods:Column>
+                      </rdf:Description>
+                      <rdf:Description>
+                        <rdf:type rdf:resource="http://www.ivoa.net/xml/VODataService/v1.1#Column"/>
+                        <ivods:Column>
+                          <ivods:name>jmag</ivods:name>
+                          <ivods:description>2MASS J magnitude</ivods:description>
+                          <ivods:unit>mag</ivods:unit>
+                          <ivods:ucd>phot.mag;em.IR.J</ivods:ucd>
+                          <ivods:flag>nullable</ivods:flag>
+                        </ivods:Column>
+                      </rdf:Description>
+                      <rdf:Description>
+                        <rdf:type rdf:resource="http://www.ivoa.net/xml/VODataService/v1.1#Column"/>
+                        <ivods:Column>
+                          <ivods:name>hmag</ivods:name>
+                          <ivods:description>2MASS H magnitude</ivods:description>
+                          <ivods:unit>mag</ivods:unit>
+                          <ivods:ucd>phot.mag;em.IR.H</ivods:ucd>
+                          <ivods:flag>nullable</ivods:flag>
+                        </ivods:Column>
+                      </rdf:Description>
+                      <rdf:Description>
+                        <rdf:type rdf:resource="http://www.ivoa.net/xml/VODataService/v1.1#Column"/>
+                        <ivods:Column>
+                          <ivods:name>kmag</ivods:name>
+                          <ivods:description>2MASS K_s magnitude</ivods:description>
+                          <ivods:unit>mag</ivods:unit>
+                          <ivods:ucd>phot.mag;em.IR.K</ivods:ucd>
+                          <ivods:flag>nullable</ivods:flag>
+                        </ivods:Column>
+                      </rdf:Description>
+                    </dcat:Dataset>
+                  </rdf:Description>
+                </dcat:Catalog>
+              </rdf:Description>
+            </dcat:Catalog>
+          </rdf:Description>
+        </rdf:RDF>
+      </metadata>
+    </record>
+  </getRecord>
+</OAI-PMH>
+
