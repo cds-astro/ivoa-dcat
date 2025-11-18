@@ -306,7 +306,6 @@
             <!-- capability -->
             <xsl:for-each select="./capability">
                 <xsl:variable name="std"><xsl:value-of select="@standardID"/></xsl:variable>
-                <xsl:variable name="desc"><xsl:value-of select="description"/></xsl:variable>
                 <xsl:for-each select="./interface">
                     <xsl:variable name="stdDesc">
                         <xsl:choose> <!-- set default description -->
@@ -319,12 +318,15 @@
                         </xsl:choose>
                     </xsl:variable>
                     <dcat:Distribution>
-                        <xsl:if test="@standardId"><dct:description><xsl:value-of select="$desc"/></dct:description></xsl:if>
+                        <xsl:if test="description"><dct:description><xsl:value-of select="description"/></dct:description></xsl:if>
                         <dct:description><xsl:value-of select="$stdDesc"/></dct:description>
                         
                         <xsl:variable name="url"><xsl:value-of select="accessURL"/></xsl:variable>
                         <xsl:if test="accessURL">
                             <dcat:accessURL><xsl:value-of select="$url"/></dcat:accessURL>
+                        </xsl:if>
+                        <xsl:if test="$std!=''"><!-- not in zenodo -->
+                            <dcat:conformTo><xsl:value-of select="$std"/></dcat:conformTo>
                         </xsl:if>
 
                         <xsl:for-each select="./resultType">
