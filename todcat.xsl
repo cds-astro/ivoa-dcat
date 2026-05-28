@@ -10,6 +10,7 @@
   - openAPI
   - capabilty: we should have always a description?
   - tofix adress in vcard
+  - how to add controlled vocabulary for keywords
 
     Choice:
   - relations use distribution (or citedcat)
@@ -51,24 +52,24 @@
             <xsl:copy-of select="/oai:OAI-PMH/oai:GetRecord/oai:record/oai:header"/>
 
             <metadata>
-            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns"
-                     xmlns:adms="http://www.w3.org/ns/adms"
+            <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                     xmlns:adms="http://www.w3.org/ns/adms#"
                      xmlns:bibo="http://purl.org/ontology/bibo/" 
                      xmlns:citedcat="https://w3id.org/citedcat-ap/" 
                      xmlns:dct="http://purl.org/dc/terms/" 
                      xmlns:dctype="http://purl.org/dc/dcmitype/" 
-                     xmlns:dcat="http://www.w3.org/ns/dcat" 
+                     xmlns:dcat="http://www.w3.org/ns/dcat#" 
                      xmlns:foaf="http://xmlns.com/foaf/0.1/"
-                     xmlns:gsp="http://www.opengis.net/ont/geosparql"
-                     xmlns:locn="http://www.w3.org/ns/locn"
-                     xmlns:org="http://www.w3.org/ns/org"
-                     xmlns:owl="http://www.w3.org/2002/07/owl"
-                     xmlns:prov="http://www.w3.org/ns/prov"
-                     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema"
-                     xmlns:skos="http://www.w3.org/2004/02/skos/core"
-                     xmlns:vcard="http://www.w3.org/2006/vcard/ns"
-                     xmlns:wdrs="http://www.w3.org/2007/05/powder-s" 
-                     xmlns:ivods="http://www.ivoa.net/xml/VODataService/v1.1">
+                     xmlns:gsp="http://www.opengis.net/ont/geosparql#"
+                     xmlns:locn="http://www.w3.org/ns/locn#"
+                     xmlns:org="http://www.w3.org/ns/org#"
+                     xmlns:owl="http://www.w3.org/2002/07/owl#"
+                     xmlns:prov="http://www.w3.org/ns/prov#"
+                     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+                     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+                     xmlns:vcard="http://www.w3.org/2006/vcard/ns#"
+                     xmlns:wdrs="http://www.w3.org/2007/05/powder-s#" 
+                     xmlns:ivods="http://www.ivoa.net/xml/VODataService/v1.1#">
             <rdf:Description>
 
             <!-- get the xsi:type : CataLogueService, ResourceService, DataService, DataResource -->
@@ -82,10 +83,10 @@
                     <dct:type rdf:resource="http://purl.org/dc/dcmitype/Dataset"/>
                 </xsl:when>
                 <xsl:when test="contains(@xsi:type, 'DataService')">
-                     <rdf:type rdf:resource="http://www.w3.org/ns/dcat#Resource"/><!--check syntaxe and rdf -->
+                     <rdf:type rdf:resource="http://www.w3.org/ns/dcat#Resource"/><!-- OR ? #Service -->
                 </xsl:when>
                 <xsl:when test="contains(@xsi:type, 'DataResource')">
-                     <rdf:type rdf:resource="http://www.w3.org/ns/dcat#Service"/><!--check syntaxe and rdf -->
+                     <rdf:type rdf:resource="http://www.w3.org/ns/dcat#Service"/><!-- TODO  #Resource -->
                 </xsl:when>
                 <xsl:otherwise>
                      <rdf:type rdf:resource="http://www.w3.org/ns/dcat#Resource"/><!--check syntaxe and rdf -->
@@ -102,9 +103,8 @@
                             <!-- add orcid if exists  in rdf:about -->
                             <xsl:attribute name="rdf:about"><xsl:value-of select="./altIdentifier"/></xsl:attribute>
                         </xsl:if>
-                        <rdf:type rdf:Resource="https://xmlns.com/foaf/0.1/Person"><!-- TODO : how to distinguish Person and Orgaizaton -->
-                             <foaf:name><xsl:value-of select="name"/></foaf:name>
-                        </rdf:type>
+                        <rdf:type rdf:Resource="https://xmlns.com/foaf/0.1/Person"/><!-- TODO : how to distinguish Person and Orgaizaton -->
+                        <foaf:name><xsl:value-of select="name"/></foaf:name>
                     </rdf:Description>
                     <!--TODO affiliation (do not exist in VOResource) -->
                 </dct:creator>
@@ -235,65 +235,66 @@
 
             <xsl:for-each select="./content/relationship">
                 <xsl:if test="./relationshipType='IsServedBy'">
-                    <dcat:Distribution>
-                        <dcat:AccessService>
-                            <xsl:choose>
-                                <xsl:when test="contains(./relatedResource/@ivo-id,'ivo://')">
-                                    <xsl:element name="Description"> <!-- that's not dcat but used in zenodo -->
-                                        <xsl:attribute name="rdf:about"><xsl:value-of select="./relatedResource/@ivo-id"/></xsl:attribute>
-                                        <dct:identifier><xsl:value-of select="./relatedResource/@ivo-id"/></dct:identifier>
-                                        <xsl:element name="rdf:type">
-                                            <xsl:attribute name="rdf:resource">http://www.w3.org/ns/dcat#Service</xsl:attribute>
-                                        </xsl:element>
-                                        <xsl:element name="rdf:type">
-                                            <xsl:attribute name="rdf:resource">http://purl.org/dc/dcmitype/Service</xsl:attribute>
-                                        </xsl:element>
-                                    </xsl:element>
-                                </xsl:when>
-                                <xsl:otherwise>  <!-- do nothing, see capability -->                                        
-                                </xsl:otherwise>        
-                            </xsl:choose>
-                            <dcat:DataService>
-                            </dcat:DataService>
-                        </dcat:AccessService>
-                    </dcat:Distribution>
+                    <xsl:choose>
+                        <xsl:when test="contains(./relatedResource/@ivo-id,'ivo://')">
+                            <dcat:distribution>
+                                <dcat:Distribution>
+                                    <xsl:attribute name="rdf:about"><xsl:value-of select="./relatedResource/@ivo-id"/></xsl:attribute>
+                                    <dct:identifier><xsl:value-of select="./relatedResource/@ivo-id"/></dct:identifier>
+                                    <xsl:if test="description"><dct:description><xsl:value-of select="./relatedResource"/></dct:description></xsl:if>
+                                </dcat:Distribution>
+                            </dcat:distribution>
+                        </xsl:when>
+                    </xsl:choose>
                 </xsl:if>
             </xsl:for-each>
 
             <!-- relationships (others) -->
 
             <xsl:for-each select="./content/relationship">
-                <xsl:variable name="relationName">
-                    <xsl:choose>
-                        <xsl:when test="relationshipType='isSupplementTo'">
-                            <xsl:text>citedcat:isSupplementTo</xsl:text>
-                        </xsl:when>
-                        <xsl:when test="relationshipType='Cites'">
-                            <xsl:text>bibo:Cites</xsl:text>
-                        <xsl:variable name="relationName" select="bibo:Cites"/>
-                        </xsl:when>
-                        <xsl:otherwise>
-                            <xsl:text>dct:relation</xsl:text>
-                        </xsl:otherwise>
-                    </xsl:choose>
-                </xsl:variable>
-
-                <xsl:for-each select="relatedResource">
-                    <xsl:if test="@ivo-id"> <!-- TODO DOI and other -->
-                        <xsl:element name="{$relationName}">
-                                <xsl:element name="Description">
-                                    <xsl:attribute name="rdf:about"><xsl:value-of select="@ivo-id"/></xsl:attribute>
-                                    <dct:identifier><xsl:value-of select="@ivo-id"/></dct:identifier>
-                                    <xsl:element name="rdf:type">
-                                        <xsl:attribute name="rdf:resource">http://www.ivoa.net/xml/VODataService/v1.1#CatalogueResource</xsl:attribute> <!--that could be wrong, but I don't know how to know the type -->
-                                    </xsl:element>
-                                    <xsl:element name="rdf:type">
-                                        <xsl:attribute name="rdf:resource">http://www.w3.org/ns/dcat#DataSet</xsl:attribute>
-                                    </xsl:element>
-                                </xsl:element>
-                        </xsl:element>
-                    </xsl:if>
-                </xsl:for-each>
+                <xsl:choose>
+                    <xsl:when test="./relationshipType='IsServedBy'">
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:variable name="relationName">
+                            <xsl:choose>
+                                <xsl:when test="relationshipType='isSupplementTo'">
+                                    <xsl:text>citedcat:isSupplementTo</xsl:text>
+                                </xsl:when>
+                                <xsl:when test="relationshipType='Cites'">
+                                    <xsl:text>bibo:Cites</xsl:text>
+                                <xsl:variable name="relationName" select="bibo:Cites"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:text>dct:relation</xsl:text>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                        </xsl:variable>
+        
+                        <xsl:for-each select="relatedResource">
+                            <xsl:element name="{$relationName}">
+                            <xsl:choose>
+                                <xsl:when test="@ivo-id"> <!-- TODO DOI and other -->
+                                        <xsl:element name="Description">
+                                            <xsl:attribute name="rdf:about"><xsl:value-of select="@ivo-id"/></xsl:attribute>
+                                            <dct:identifier><xsl:value-of select="@ivo-id"/></dct:identifier>
+                                            <!--the folowing type could be wrong, but I don't know how to know the type -->
+                                            <xsl:element name="rdf:type">
+                                                <xsl:attribute name="rdf:resource">http://www.ivoa.net/xml/VODataService/v1.1#CatalogueResource</xsl:attribute> 
+                                            </xsl:element>
+                                            <xsl:element name="rdf:type">
+                                                <xsl:attribute name="rdf:resource">http://www.w3.org/ns/dcat#DataSet</xsl:attribute>
+                                            </xsl:element>
+                                        </xsl:element>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                    <xsl:value-of select="."/>
+                                </xsl:otherwise>
+                            </xsl:choose>
+                            </xsl:element>
+                        </xsl:for-each>
+                    </xsl:otherwise>        
+                </xsl:choose>
             </xsl:for-each>
 
             <!-- rights -->
@@ -317,13 +318,16 @@
                             <xsl:when test="contains(@xsi:type,'ParamHTTP')">Other HTTP Data access</xsl:when> <!-- vs:ParamHTTP -->
                         </xsl:choose>
                     </xsl:variable>
+                    <dcat:distribution>
                     <dcat:Distribution>
                         <xsl:if test="description"><dct:description><xsl:value-of select="description"/></dct:description></xsl:if>
                         <dct:description><xsl:value-of select="$stdDesc"/></dct:description>
                         
                         <xsl:variable name="url"><xsl:value-of select="accessURL"/></xsl:variable>
                         <xsl:if test="accessURL">
-                            <dcat:accessURL><xsl:value-of select="$url"/></dcat:accessURL>
+                            <dcat:accessURL>
+                                <xsl:attribute name="rdf:resource"><xsl:value-of select="$url"/></xsl:attribute>
+                            </dcat:accessURL>
                         </xsl:if>
                         <xsl:if test="$std!=''"><!-- not in zenodo -->
                             <dcat:conformTo><xsl:value-of select="$std"/></dcat:conformTo>
@@ -334,56 +338,84 @@
                         </xsl:for-each>
 
                         <xsl:if test="$std!=''">
-                            <dcat:AccessService>
-                                <xsl:element name="Description"> <!-- that's not dcat but used in zenodo -->
+                            <dcat:accessService>
+                                <dcat:AccessService>
                                     <xsl:attribute name="rdf:about"><xsl:value-of select="$std"/></xsl:attribute>
                                     <xsl:if test="@ivo-id"><dct:identifier><xsl:value-of select="@ivo-id"/></dct:identifier></xsl:if>
                                     <dcat:endpointURL><xsl:value-of select="$url"/></dcat:endpointURL>
                                     <dcat:endpointURLDescription>http://ivo.net/openAPI/...</dcat:endpointURLDescription><!-- I have no URL today -->
-                                </xsl:element>
-                            </dcat:AccessService>
+                                </dcat:AccessService>
+                            </dcat:accessService>
                         </xsl:if>
 
                         <xsl:for-each select="mirrorURL">
-                            <dcat:accessURL><xsl:value-of select="."/></dcat:accessURL>
+                            <dcat:accessURL>
+                                <xsl:attribute name="rdf:resource"><xsl:value-of select="."/></xsl:attribute>
+                            </dcat:accessURL>
                         </xsl:for-each>
                     </dcat:Distribution>
+                    </dcat:distribution>
                 </xsl:for-each>
             </xsl:for-each>
+
+            <!-- Coverage -->
+            <xsl:if test="./coverage">
+                <ivods:coverage>
+                <rdf:Description>
+                <xsl:if test="./coverage/spatial">
+                    <ivods:spatial><xsl:value-of select="./coverage/spatial"/></ivods:spatial>
+                </xsl:if>
+                <xsl:if test="./coverage/footprint">
+                    <ivods:footprint>
+                        <xsl:if test="./coverage/footprint/@ivo-id">
+                            <xsl:attribute name="ivo-id"><xsl:value-of select="./coverage/footprint/@ivo-id"/></xsl:attribute>
+                        </xsl:if>
+                        <xsl:value-of select="./coverage/footprint"/>
+                    </ivods:footprint>
+                </xsl:if>
+                <xsl:if test="./coverage/waveband">
+                    <ivods:waveband><xsl:value-of select="./coverage/waveband"/></ivods:waveband>
+                </xsl:if>
+                </rdf:Description>
+                </ivods:coverage>
+            </xsl:if>
 
             <!-- tableset -->
 
             <xsl:for-each select="./tableset">
                 <xsl:for-each select="schema"><!-- I consider schema as a Catalog -->
-                    <dcat:Catalog>
-                        <xsl:element name="rdf:Description">
-                            <xsl:attribute name="rdf:about"><xsl:value-of select="name"/></xsl:attribute>
-                            <dct:type rdf:resource="http://purl.org/dc/dcmitype/Catalog"/>
-                            <dcat:Catalog>
-                                <xsl:for-each select="table">
-                                    <xsl:element name="rdf:Description">
-                                        <xsl:attribute name="rdf:about"><xsl:value-of select="name"/></xsl:attribute>
-                                        <dct:type rdf:resource="http://purl.org/dc/dcmitype/Dataset"/><!--I don't think it is ok-->
-                                        <dcat:Dataset>
-                                            <dct:description><xsl:value-of select="description"/></dct:description>
-                                            <xsl:for-each select="column">
+                    <xsl:for-each select="table">
+                        <dcat:catalog>
+                            <dcat:DataSet>
+                                <dct:identifier><xsl:value-of select="name"/></dct:identifier>
+                                <ivods:table>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.ivoa.net/xml/VODataService/v1.1#Table"/>
+                                        <ivods:name><xsl:value-of select="name"/></ivods:name>
+                                        <ivods:description><xsl:value-of select="description"/></ivods:description>
+                                        <xsl:for-each select="column">
+                                            <ivods:column>
                                                 <rdf:Description>
-                                                    <rdf:type rdf:resource="http://www.ivoa.net/xml/VODataService/v1.1#Column"/> <!--Introduce VODataservice because column doesn't exist in DCAT -->
-                                                    <ivods:Column>
-                                                        <ivods:name><xsl:value-of select="name"/></ivods:name>
-                                                        <xsl:if test="description"><ivods:description><xsl:value-of select="description"/></ivods:description></xsl:if>
-                                                        <xsl:if test="unit"><ivods:unit><xsl:value-of select="unit"/></ivods:unit></xsl:if>
-                                                        <xsl:if test="ucd"><ivods:ucd><xsl:value-of select="ucd"/></ivods:ucd></xsl:if>
-                                                        <xsl:if test="flag"><ivods:flag><xsl:value-of select="flag"/></ivods:flag></xsl:if>
-                                                    </ivods:Column>
+                                                    <ivods:name><xsl:value-of select="name"/></ivods:name>
+                                                    <xsl:if test="description"><ivods:description><xsl:value-of select="description"/></ivods:description></xsl:if>
+                                                    <xsl:if test="unit"><ivods:unit><xsl:value-of select="unit"/></ivods:unit></xsl:if>
+                                                    <xsl:if test="ucd"><ivods:ucd><xsl:value-of select="ucd"/></ivods:ucd></xsl:if>
+                                                    <xsl:if test="flag"><ivods:flag><xsl:value-of select="flag"/></ivods:flag></xsl:if>
+                                                    <xsl:if test="dataType">
+                                                        <ivods:dataType>
+                                                            <xsl:if test="dataType/@arraysize"><xsl:attribute name="arraysize"><xsl:value-of select="dataType/@arraysize"/></xsl:attribute></xsl:if>
+                                                            <xsl:if test="dataType/@xsi:type"><xsl:attribute name="type"><xsl:value-of select="dataType/@xsi:type"/></xsl:attribute></xsl:if>
+                                                            <xsl:value-of select="dataType"/>
+                                                        </ivods:dataType>
+                                                    </xsl:if>
                                                 </rdf:Description>
-                                            </xsl:for-each>
-                                        </dcat:Dataset>
-                                    </xsl:element>
-                                </xsl:for-each>
-                            </dcat:Catalog>
-                        </xsl:element>
-                    </dcat:Catalog>
+                                            </ivods:column>
+                                        </xsl:for-each>
+                                    </rdf:Description>
+                                </ivods:table>
+                            </dcat:DataSet>
+                        </dcat:catalog>
+                    </xsl:for-each>
                 </xsl:for-each>
             </xsl:for-each>
 
