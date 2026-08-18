@@ -12,23 +12,16 @@ The serialisation is based on the DCAT output provided by ZENODO.
 
 example: https://zenodo.org/records/17122603 use "DCAT" Export
 
+Implementation Example: https://cds.unistra.fr/registry/?verb=GetRecord&metadataPrefix=DCAT&identifier=ivo://cds.vizier/i/350
 
-The process uses XSLT.
+# Contents
 
+- IVOA Note: `make`
+- todcat.xsl: XSLT that transforms IVOA registry record (OAI-PMH ser) into DCAT
+- examples
 
 
 # Issues
-- [ ] manage also Service
-- [ ] how to distinguish Person and Organization ?
-- [ ] Affiliation is not in VOResource
-- [ ] relationships: manage doi or bibcode (TODO)
-- [ ] relationships: manage other thatrelated-to and isServedBy and isSuplementTo (TODO)
 - [ ] rights: improve when http spdx and spdx name
 - [ ] openAPI URL ?
-- [ ] capabilty: a description should be mandatory ?
-
-## Choice
-- relations use distribution (or citedcat)
-- table description: Catalog (schema), then  Datasets (tables) 
-- use citedcat  (not in DCAT): ivoa:CatalogueResource and dcat:Dataset to the type of relations
 
